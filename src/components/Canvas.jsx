@@ -29,18 +29,18 @@ const Canvas = (props) => {
       <CannonPipe rotation={props.angle} />
       <CannonBase />
       <CurrentScore score={15} />
+      
+      {props.gameState.flyingObjects.map(flyingObject => (
+        <FlyingObject
+          key={flyingObject.id}
+          position={flyingObject.position}
+        />
+      ))}
 
       { ! props.gameState.started &&
         <g>
           <StartGame onClick={() => props.startGame()} />
           <Title />
-        </g>
-      }
-
-      { props.gameState.started &&
-        <g>
-          <FlyingObject position={{x: -150, y: -300}}/>
-          <FlyingObject position={{x: 150, y: -300}}/>
         </g>
       }
     </svg>

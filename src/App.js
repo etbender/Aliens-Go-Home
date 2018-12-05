@@ -29,7 +29,7 @@ class App extends Component {
       <Canvas
         angle={this.props.angle}
         gameState={this.props.gameState}
-        startGame={this.props.startGame}
+        startGame={this.props.startGame} //props.startGame is a function that dispatches MyActions.startGame().
         trackMouse={event => (this.trackMouse(event))}
       />
     );
@@ -38,11 +38,22 @@ class App extends Component {
 
 App.propTypes = {
   angle: PropTypes.number.isRequired,
+  
   gameState: PropTypes.shape({
+    
+    flyingObjects: PropTypes.arrayOf(PropTypes.shape({
+      position: PropTypes.shape({
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired
+      }).isRequired,
+      id: PropTypes.number.isRequired,
+    })).isRequired,
+    
     started: PropTypes.bool.isRequired,
     kills: PropTypes.number.isRequired,
     lives: PropTypes.number.isRequired,
   }).isRequired,
+  
   moveObjects: PropTypes.func.isRequired,
   startGame: PropTypes.func.isRequired,
 };
